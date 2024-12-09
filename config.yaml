@@ -1,0 +1,11 @@
+app:
+  env: "development"
+  port: 8080
+  debug: true
+postgresql:
+  user: "admin"
+  password: "S3cret"
+  dbname: "abcShop"
+log:
+  level: "debug"
+  format: "json"
