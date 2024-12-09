@@ -1,6 +1,7 @@
 package models
 
 import (
+	"abcShop/enums"
 	"time"
 
 	"github.com/google/uuid"
@@ -14,9 +15,10 @@ type Product struct {
 	Description string
 	Category    string
 	Tags        pq.StringArray `gorm:"type:text[]"`
-	Status      int
+	Status      enums.ProductStatus
 	Amount      int
 	Price       float64
 	CreatedAt   time.Time
 	CreatedBy   uuid.UUID `gorm:"type:uuid"`
 }
+

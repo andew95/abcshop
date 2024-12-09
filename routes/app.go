@@ -19,4 +19,7 @@ func SetupRoute(r *gin.Engine, ctl *app.SetupController) {
 		v1.POST("register", ctl.RegisterController.Register)
 		v1.POST("login", ctl.LoginController.Login)
 	}
+
+	// register router
+	addProductRouter(v1, ctl.ProductController)
 }
