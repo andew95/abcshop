@@ -26,12 +26,18 @@ func (ctl *registerController) Register(c *gin.Context) {
 	var request registerDto.Request
 	err := c.BindJSON(&request)
 	if err != nil {
-		c.Error(err)
+		c.JSON(400, map[string]string{
+			"message": err.Error(),
+		})
+		return
 	}
 
 	response, err := ctl.RegisterService.Execute(request)
 	if err != nil {
-		c.Error(err)
+		c.JSON(400, map[string]string{
+			"message": err.Error(),
+		})
+		return
 	}
 
 	c.JSON(http.StatusOK, response)
