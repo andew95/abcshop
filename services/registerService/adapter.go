@@ -8,8 +8,10 @@ import (
 	"abcShop/pkg/abcTime"
 	"abcShop/pkg/abcToken"
 	"abcShop/repository/userRepository"
+	"errors"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type IRegisterService interface {
@@ -30,14 +32,24 @@ func (s *registerService) Execute(request registerDto.Request) (*registerDto.Res
 	// pwd = abcToken.NewToken(request.Password, "http://localhost:8080")
 	password := abcPassword.HashPassword(request.Password)
 	userModel := models.User{
-		Id:       uuid.New(),
-		Username: request.Username,
-		Email:    request.Email,
-		Password: password,
-		Role:     enums.USER_ROLE_MEMBER,
+		Id:           uuid.New(),
+		Username:     request.Username,
+		Email:        request.Email,
+		HashPassword: password,
+		Role:         enums.USER_ROLE_MEMBER,
 	}
 
-	err := s.UserRepo.Create(&userModel)
+	user, err := s.UserRepo.FindOne(&models.User{
+		Email: userModel.Email,
+	})
+	if err != nil && err != gorm.ErrRecordNotFound {
+		return nil, err
+	}
+	if user != nil {
+		return nil, errors.New("user already exit")
+	}
+
+	err = s.UserRepo.Create(&userModel)
 	if err != nil {
 		return nil, err
 	}

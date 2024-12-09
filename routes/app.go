@@ -17,5 +17,6 @@ func SetupRoute(r *gin.Engine, ctl *app.SetupController) {
 	v1 := r.Group("v1")
 	{
 		v1.POST("register", ctl.RegisterController.Register)
+		v1.POST("login", ctl.LoginController.Login)
 	}
 }
