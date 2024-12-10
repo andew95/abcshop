@@ -1,7 +1,6 @@
 package registerService
 
 import (
-	"abcShop/Dtos/registerDto"
 	"abcShop/enums"
 	"abcShop/models"
 	"abcShop/pkg/abcPassword"
@@ -15,7 +14,7 @@ import (
 )
 
 type IRegisterService interface {
-	Execute(request registerDto.Request) (*registerDto.Response, error)
+	Execute(request Request) (*Response, error)
 }
 
 type registerService struct {
@@ -28,7 +27,7 @@ func NewRegisterService(repo userRepository.IUserRepository) IRegisterService {
 	}
 }
 
-func (s *registerService) Execute(request registerDto.Request) (*registerDto.Response, error) {
+func (s *registerService) Execute(request Request) (*Response, error) {
 	// pwd = abcToken.NewToken(request.Password, "http://localhost:8080")
 	password := abcPassword.HashPassword(request.Password)
 	userModel := models.User{
@@ -59,14 +58,14 @@ func (s *registerService) Execute(request registerDto.Request) (*registerDto.Res
 	if err != nil {
 		return nil, err
 	}
-	response := registerDto.Response{
-		User: registerDto.UserResponse{
+	response := Response{
+		User: UserResponse{
 			Id:        userModel.Id.String(),
 			Username:  request.Username,
 			Email:     userModel.Email,
 			CreatedAt: userModel.CreatedAt.Format(abcTime.LAYOUT_ISO),
 		},
-		Token: tokenString,
+		TokenString: tokenString,
 	}
 	return &response, nil
 }
