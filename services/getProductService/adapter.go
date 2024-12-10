@@ -2,7 +2,9 @@ package getProductService
 
 import "abcShop/repository/productRepository"
 
-type IGetProductService interface{}
+type IGetProductService interface {
+	Execute(request Request) (*Response, error)
+}
 
 type getProductService struct {
 	repo productRepository.IProductRepository
@@ -14,6 +16,13 @@ func NewCreateProductService(repo productRepository.IProductRepository) IGetProd
 	}
 }
 
-func (s *getProductService) Execute(request Response) (*Response, error) {
-	return nil, nil
+func (s *getProductService) Execute(request Request) (*Response, error) {
+	conds := request.ToFindOneRequest()
+	productModel, err := s.repo.FindOne(conds)
+	if err != nil {
+		return nil, err
+	}
+
+	response := ToResponse(productModel)
+	return &response, nil
 }
