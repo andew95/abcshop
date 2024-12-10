@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"abcShop/Dtos/loginDto"
 	"abcShop/services/loginService"
 	"net/http"
 
@@ -23,7 +22,7 @@ func NewLoginController(loginService loginService.ILoginService) ILoginControlle
 }
 
 func (ctl *loginController) Login(c *gin.Context) {
-	var request loginDto.Request
+	var request loginService.Request
 
 	err := c.BindJSON(&request)
 	if err != nil {
@@ -33,7 +32,7 @@ func (ctl *loginController) Login(c *gin.Context) {
 		return
 	}
 
-	response, err := ctl.LoginService.Login(request.ToLoginServiceRequest())
+	response, err := ctl.LoginService.Login(request)
 	if err != nil {
 		c.JSON(400, map[string]string{
 			"message": err.Error(),

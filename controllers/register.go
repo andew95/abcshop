@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"abcShop/Dtos/registerDto"
 	"abcShop/services/registerService"
 	"net/http"
 
@@ -23,7 +22,7 @@ func NewRegisterController(registerService registerService.IRegisterService) IRe
 }
 
 func (ctl *registerController) Register(c *gin.Context) {
-	var request registerDto.Request
+	var request registerService.Request
 	err := c.BindJSON(&request)
 	if err != nil {
 		c.JSON(400, map[string]string{

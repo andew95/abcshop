@@ -29,17 +29,17 @@ type productController struct {
 }
 
 func NewProductController(
-	create createProductService.ICreateProductService,
-	getlist getProductListService.IGetProductListService,
-	get getProductService.IGetProductService,
-	update updateProductService.IUpdateProductService,
+	createProduct createProductService.ICreateProductService,
+	getProductList getProductListService.IGetProductListService,
+	getProduct getProductService.IGetProductService,
+	updateProduct updateProductService.IUpdateProductService,
 	deleteProduct deleteProductService.IDeleteProductService,
 ) IProductController {
 	return &productController{
-		CreateProductService:  create,
-		GetProductListService: getlist,
-		GetProductService:     get,
-		UpdateProductService:  update,
+		CreateProductService:  createProduct,
+		GetProductListService: getProductList,
+		GetProductService:     getProduct,
+		UpdateProductService:  updateProduct,
 		DeleteProductService:  deleteProduct,
 	}
 }
