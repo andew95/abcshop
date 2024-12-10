@@ -54,7 +54,8 @@ func (repo *userRepository) Create(userModel *models.User) error {
 }
 
 func (repo *userRepository) Update(model *models.User) error {
-	return nil
+	err := repo.db.Debug().Updates(model).Error
+	return err
 }
 
 func (repo *userRepository) Delete(model *models.User) error {

@@ -7,7 +7,6 @@ import (
 	"abcShop/pkg/abcToken"
 	"abcShop/repository/userRepository"
 	"errors"
-	"fmt"
 )
 
 type ILoginService interface {
@@ -30,8 +29,8 @@ func (s *loginService) Login(request Request) (*Response, error) {
 		return nil, err
 	}
 
-	fmt.Println(userModel)
-	fmt.Println(request)
+	// fmt.Println(userModel)
+	// fmt.Println(request)
 	// pwd := abcPassword.HashPassword(request.Password)
 	// fmt.Println(pwd)
 	result := abcPassword.CheckPasswordHash(request.Password, userModel.HashPassword)

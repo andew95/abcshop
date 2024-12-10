@@ -8,16 +8,20 @@ import (
 	"abcShop/services/loginService"
 	"abcShop/services/registerService"
 	"abcShop/services/updateProductService"
+	"abcShop/services/updateUserPasswordService"
+	"abcShop/services/updateUserService"
 )
 
 type SetupService struct {
-	Register       registerService.IRegisterService
-	Login          loginService.ILoginService
-	CreateProduct  createProductService.ICreateProductService
-	GetProductList getProductListService.IGetProductListService
-	GetProduct     getProductService.IGetProductService
-	UpdateProduct  updateProductService.IUpdateProductService
-	DeleteProduct  deleteProductService.IDeleteProductService
+	Register           registerService.IRegisterService
+	Login              loginService.ILoginService
+	CreateProduct      createProductService.ICreateProductService
+	GetProductList     getProductListService.IGetProductListService
+	GetProduct         getProductService.IGetProductService
+	UpdateProduct      updateProductService.IUpdateProductService
+	DeleteProduct      deleteProductService.IDeleteProductService
+	UpdateUser         updateUserService.IUpdateUserService
+	UpdateUserPassword updateUserPasswordService.IUpdateUserPasswordService
 }
 
 func NewSetupService(repo *SetupRepository) *SetupService {
@@ -31,13 +35,19 @@ func NewSetupService(repo *SetupRepository) *SetupService {
 	updateProduct := updateProductService.NewUpdateProductService(repo.ProductRepo)
 	deleteProduct := deleteProductService.NewDeleteProductService(repo.ProductRepo)
 
+	// user service
+	updateUser := updateUserService.NewUserUpdateService(repo.UserRepo)
+	updateUserPassword := updateUserPasswordService.NewUpdateUserPasswordService(repo.UserRepo)
+
 	return &SetupService{
-		Register:       register,
-		Login:          login,
-		CreateProduct:  createProduct,
-		GetProductList: getProductList,
-		GetProduct:     getProduct,
-		UpdateProduct:  updateProduct,
-		DeleteProduct:  deleteProduct,
+		Register:           register,
+		Login:              login,
+		CreateProduct:      createProduct,
+		GetProductList:     getProductList,
+		GetProduct:         getProduct,
+		UpdateProduct:      updateProduct,
+		DeleteProduct:      deleteProduct,
+		UpdateUser:         updateUser,
+		UpdateUserPassword: updateUserPassword,
 	}
 }
