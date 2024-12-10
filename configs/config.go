@@ -6,6 +6,8 @@ import (
 	"github.com/spf13/viper"
 )
 
+const BEARER_SCHEMA = "Bearer "
+
 type conf struct {
 	DbConfig dbConfig
 }

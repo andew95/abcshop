@@ -4,6 +4,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
+	"gorm.io/datatypes"
 )
 
 type InvoiceItem struct {
@@ -22,7 +23,7 @@ type Invoice struct {
 	SellerAddress string
 	BuyerName     string
 	BuyerAddress  string
-	Items         *[]Invoice
+	Items         datatypes.JSON
 	Total         float64
 	Note          string
 	CreatedAt     time.Time
