@@ -29,10 +29,6 @@ func (s *loginService) Login(request Request) (*Response, error) {
 		return nil, err
 	}
 
-	// fmt.Println(userModel)
-	// fmt.Println(request)
-	// pwd := abcPassword.HashPassword(request.Password)
-	// fmt.Println(pwd)
 	result := abcPassword.CheckPasswordHash(request.Password, userModel.HashPassword)
 	if !result {
 		return nil, errors.New("password not match")

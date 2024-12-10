@@ -6,9 +6,6 @@ import (
 	"github.com/golang-jwt/jwt"
 )
 
-// type JWTService interface {
-// }
-
 type IToken interface {
 	GenerateToken(id string, email string, role string) (string, error)
 }
