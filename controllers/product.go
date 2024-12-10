@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"abcShop/services/createProductService"
+	"abcShop/services/getProductListService"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,12 +17,17 @@ type IProductController interface {
 }
 
 type productController struct {
-	CreateProductService createProductService.ICreateProductService
+	CreateProductService  createProductService.ICreateProductService
+	GetProductListService getProductListService.IGetProductListService
 }
 
-func NewProductController(c createProductService.ICreateProductService) IProductController {
+func NewProductController(
+	create createProductService.ICreateProductService,
+	getlist getProductListService.IGetProductListService,
+) IProductController {
 	return &productController{
-		CreateProductService: c,
+		CreateProductService:  create,
+		GetProductListService: getlist,
 	}
 }
 
@@ -40,7 +46,15 @@ func (ctl *productController) Create(c *gin.Context) {
 	c.JSON(http.StatusOK, response)
 }
 
-func (ctl *productController) Find(c *gin.Context) {}
+func (ctl *productController) Find(c *gin.Context) {
+	var request getProductListService.Request
+	response, err := ctl.GetProductListService.Execute(request)
+	if err != nil {
+		c.JSON(400, map[string]string{"message": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, response)
+}
 
 func (ctl *productController) FindOne(c *gin.Context) {}
 

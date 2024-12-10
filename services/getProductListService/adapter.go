@@ -3,7 +3,7 @@ package getProductListService
 import "abcShop/repository/productRepository"
 
 type IGetProductListService interface {
-	Execute(request Request) (*Response, error)
+	Execute(request Request) ([]Response, error)
 }
 
 type getProductListService struct {
@@ -16,6 +16,15 @@ func NewGetProductListService(repo productRepository.IProductRepository) IGetPro
 	}
 }
 
-func (s *getProductListService) Execute(request Request) (*Response, error) {
-	return nil, nil
+func (s *getProductListService) Execute(request Request) ([]Response, error) {
+	products, err := s.repo.Find(nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var resp []Response
+	for _, productModel := range products {
+		resp = append(resp, ToResponse(&productModel))
+	}
+	return resp, nil
 }

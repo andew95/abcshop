@@ -11,7 +11,7 @@ type SetupController struct {
 func NewSetupController(service *SetupService) *SetupController {
 	register := controllers.NewRegisterController(service.Register)
 	login := controllers.NewLoginController(service.Login)
-	product := controllers.NewProductController(service.CreateProduct)
+	product := controllers.NewProductController(service.CreateProduct, service.GetProductList)
 	return &SetupController{
 		RegisterController: register,
 		LoginController:    login,

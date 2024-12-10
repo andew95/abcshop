@@ -10,5 +10,6 @@ func addProductRouter(rg *gin.RouterGroup, ctl controllers.IProductController) {
 	r := rg.Group("product")
 	{
 		r.POST("", ctl.Create)
+		r.GET("", ctl.Find)
 	}
 }
