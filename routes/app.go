@@ -22,4 +22,5 @@ func SetupRoute(r *gin.Engine, ctl *app.SetupController) {
 
 	// register router
 	addProductRouter(v1, ctl.ProductController)
+	addUserRouter(v1, ctl.UserController)
 }
