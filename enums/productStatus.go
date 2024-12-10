@@ -17,3 +17,14 @@ func (v ProductStatus) ToString() string {
 		return "undefine"
 	}
 }
+
+func NewProductStatus(status string) ProductStatus {
+	switch status {
+	case "inactive":
+		return PRODUCT_STATUS_INACTIVE
+	case "active":
+		return PRODUCT_STATUS_ACTIVE
+	default:
+		return PRODUCT_STATUS_INACTIVE
+	}
+}

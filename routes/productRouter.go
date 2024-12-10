@@ -12,7 +12,7 @@ func addProductRouter(rg *gin.RouterGroup, ctl controllers.IProductController) {
 		r.POST("", ctl.Create)
 		r.GET("", ctl.Find)
 		r.GET("/:id", ctl.FindOne)
-		r.PUT("", ctl.Update)
-		r.DELETE("", ctl.Delete)
+		r.PUT("/:id", ctl.Update)
+		r.DELETE("/:id", ctl.Delete)
 	}
 }
